@@ -1,0 +1,33 @@
+body{
+    background-image: url('ImageBackground.jpg');
+    background-size:cover;
+    background-position:top;
+}
+
+.current{
+    width: 12em;
+    color: white;
+    padding: 1em;
+    border-radius: 40px;
+}
+
+.alarm{
+    width: 30em;
+    border-radius: 40px;
+    padding: 2em;
+}
+
+@media screen and (max-width:900px){
+    .alarm{
+        width: 20em;
+        position: relative;
+        top: 200px;
+    }
+    #container{
+        position: relative;
+        top: 200px;
+    }
+
+}
+
+
