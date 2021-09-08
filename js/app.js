@@ -89,7 +89,8 @@ document.getElementById('setAlarm').addEventListener('click', (e) => {
         <div class="card-body">
             <h5 class="card-title" style="color: gray;">Alarm Set </h5>
             <p class="card-text">${document.getElementById('intime').value}</p>
-            <a href="" class="btn btn-secondary" id="pause" onclick="sound.pause();" >Stop</a>
+            <a href="" class="btn btn-secondary" id="pause" onclick="check(event,this,1);" >Stop</a>
+            <a href="" class="btn btn-secondary" id="stop" onclick="check(event,this,0);" >Cancel</a>
         </div>
     </div>
     `;
@@ -105,7 +106,18 @@ document.getElementById('setAlarm').addEventListener('click', (e) => {
             sound.play();
         }, d_temp - d);
 
-        document.getElementById('intime').disabled = true
     }
 })
 
+
+function check(e,i,flag){
+
+    e.preventDefault();
+ 
+    if(flag == 1){
+        sound.pause();
+    }
+
+    i.parentNode.parentNode.parentNode.removeChild(i.parentNode.parentNode);
+
+}
