@@ -82,6 +82,15 @@ document.getElementById('setAlarm').addEventListener('click', (e) => {
     intime = document.getElementById('intime').value;
 
     if (intime != "") {
+        let x;
+        d_temp = new Date();
+        temp_time = intime.split(":")
+        d_temp.setHours(temp_time[0], temp_time[1]);
+
+        x=setTimeout(() => {
+            sound.play();
+        }, d_temp - d);
+
         e.preventDefault();
 
         var html = `
@@ -89,28 +98,20 @@ document.getElementById('setAlarm').addEventListener('click', (e) => {
         <div class="card-body">
             <h5 class="card-title" style="color: gray;">Alarm Set </h5>
             <p class="card-text">${document.getElementById('intime').value}</p>
-            <a href="" class="btn btn-secondary" id="pause" onclick="check(event,this,1);" >Stop</a>
-            <a href="" class="btn btn-secondary" id="stop" onclick="check(event,this,0);" >Cancel</a>
+            <a href="" class="btn btn-secondary" id="pause" onclick="check(event,this,1,${x});" >Stop</a>
+            <a href="" class="btn btn-secondary" id="stop" onclick="check(event,this,0,${x});" >Cancel</a>
         </div>
     </div>
     `;
         index++;
 
         document.getElementById('container').innerHTML += html;
-
-        d_temp = new Date();
-        temp_time = intime.split(":")
-        d_temp.setHours(temp_time[0], temp_time[1]);
-
-        setTimeout(() => {
-            sound.play();
-        }, d_temp - d);
-
+     
     }
 })
 
 
-function check(e,i,flag){
+function check(e,i,flag,x){
 
     e.preventDefault();
  
@@ -119,5 +120,7 @@ function check(e,i,flag){
     }
 
     i.parentNode.parentNode.parentNode.removeChild(i.parentNode.parentNode);
+
+    clearTimeout(x);
 
 }
