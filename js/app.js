@@ -1,17 +1,9 @@
 
-setInterval(showTime, 1000);
 var sound = new Audio('alarmtone.WAV');
 let d = new Date();
 let index = 1;
 
-
-function maxTime() {
-
-    document.getElementById('intime')
-}
-
-function showTime() {
-
+window.onload = function showCurrent() {
     const months = [
         "January", "February",
         "March", "April", "May",
@@ -20,34 +12,10 @@ function showTime() {
         "November", "December"
     ];
 
-    //fetching DateTime
-    dh = d.getHours();
-    dm = d.getMinutes();
-    ds = d.getSeconds();
-    ampm = "AM";
-
-    //Setting AM/PM & 1-12 hours
-    if (dh > 12)
-        ampm = "PM";
-
-    dh = (dh > 12 ? dh - 12 : dh);
-    if (dh == 0) {
-        dh = 12;
-        ampm = "AM";
-    }
-
-    //zero Padding
-    dm = (dm < 10 ? "0" : "") + dm;
-    ds = (ds < 10 ? "0" : "") + ds;
-    dh = (dh < 10 ? "0" : "") + dh;
-
-    //Creating String
-    var dateStr = dh + " : " + dm + " : " + ds;
-
-    day = d.getDay();
     monthname = months[d.getMonth()] + " " + d.getDate();
+    document.getElementById('date').innerHTML = monthname;
 
-    switch (day) {
+    switch (d.getDay()) {
         case 0:
             day = "Sunday";
             break;
@@ -70,12 +38,36 @@ function showTime() {
             day = "SaturDay";
             break;
     }
-
     document.getElementById('dayname').innerHTML = day;
-    document.getElementById('time').innerHTML = dateStr;
-    document.getElementById('date').innerHTML = monthname;
+}
+
+function showTime() {
+
+    var d=new Date();
+    //fetching DateTime
+    dh = d.getHours();
+    dm = d.getMinutes();
+    ds = d.getSeconds();
+    ampm = "AM";
+
+    dh = (dh > 12 ? dh - 12 : dh);
+
+    if (dh == 0) {
+        dh = 12;
+    }
+
+    //zero Padding
+    dm = (dm < 10 ? "0" : "") + dm;
+    ds = (ds < 10 ? "0" : "") + ds;
+    dh = (dh < 10 ? "0" : "") + dh;
+   
+    //Creating String
+    document.getElementById('time').innerHTML =  dh + " : " + dm + " : " + ds;
+    // console.log( dh + " : " + dm + " : " + ds );
 
 }
+
+setInterval(showTime, 1000);
 
 
 document.getElementById('setAlarm').addEventListener('click', (e) => {
@@ -87,7 +79,7 @@ document.getElementById('setAlarm').addEventListener('click', (e) => {
         temp_time = intime.split(":")
         d_temp.setHours(temp_time[0], temp_time[1]);
 
-        x=setTimeout(() => {
+        x = setTimeout(() => {
             sound.play();
         }, d_temp - d);
 
@@ -106,16 +98,16 @@ document.getElementById('setAlarm').addEventListener('click', (e) => {
         index++;
 
         document.getElementById('container').innerHTML += html;
-     
+
     }
 })
 
 
-function check(e,i,flag,x){
+function check(e, i, flag, x) {
 
     e.preventDefault();
- 
-    if(flag == 1){
+
+    if (flag == 1) {
         sound.pause();
     }
 
